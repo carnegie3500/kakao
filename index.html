@@ -1,343 +1,461 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
 	<meta charset="utf-8">
-	<title>풀무원</title>
-	<!-- 스타일 명령-->
-	<link rel="stylesheet" href="css/reset.css" type="text/css">
-	<link rel="stylesheet" href="css/layout.css" type="text/css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>공통코딩2</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/layout.css">
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> 
-	<script src="js/jquery-1.6.2.min.js"></script>
+	<style type="text/css">
+		#title ul li h2 + a{
+			transition: all 0.5s;
+		}
+		.sb{
+			background: #ccc;
+
+		}
+	</style>
+	<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
 	<script>
 		$(document).ready(
-			function (){
-				//메인메뉴 호버
-				$("div#header ul.mainMenu h2").hover(
-					function(){
-						$(this).next().slideDown(500);
+		function(){
+			
+			//h1에 마우스를 올리면 실행해라
+			$("#title ul li h2 + a").hover( //hover안에는 function(){}이 들어간다 2개까지를 넣을 수 있다
+				function(){ // mouseenter시(마우스진입)
+					//h1의 스타일을 지정하시오(배경색을 red로 지정하시오)
+					$("#title ul li h2 + a").css({"background":"black","color":"white"});
+					$("#title ul li h2 + a").addClass("#title ul li h2 + a span:hover");
+
+				},
+				function(){ //mouseleave시(마우스이탈)
+					$("#title ul li h2 + a").css({"background":"white","color":"black"});
+					  //transparent은 투명색
+						//:"color","white"
+				}
+			);
+			//a 오버시 밑줄 표시
+			$("header ul.mainmenu a").hover(
+				function(){
+				 $(this).children().not("i").css("background-color","black");
+				 $(this).children().not("i").css("background-color","black");
+				},
+				function(){
+				 $(this).children().not("i").css("background-color","transparent");
+
+				}
+				
+			);
+			
+			$("header").hover(
+				function(){
+					//$("header").stop().animate({"height":"58px"},0);
+					$("header").css("background-color","white");
+					$("header ul.mainmenu > li h2 a,header ul.lang li:first-child a").css("color","black");
+					$("header h1 a span").css("background-image","url(img/logo_kakao.png)");
+					$("header ul.mainmenu > li:last-child i").css("background-position","-155px 0px");
+				}
+			);	
+		
+			$("header ul.mainmenu>li h2").hover(
+				function(){
+					$("header").stop().animate({"height":"300px"},0);
+					$("header .headerIn .mainmenu > li:first-child ul li,header ul.mainmenu > li ul").css("border-width","1px");
+					$(this).next().children().slideDown(10);
+					$(this).parent().siblings().children().children("ul").slideUp(10).removeClass();
+					
+					//$(this).parent().siblings().children("ul").slideUp(10).removeClass();
 
 
+				}
+			);	
+
+			$("header").mouseleave(
+				function(){
+					$("header").stop().animate({"height":"58px"},0);
+					$("header").css("background-color","transparent");
+					$("header h1 a span").css("background-image","url(img/logo_kakao2.png)");
+					$("header ul.mainmenu > li h2 a,header ul.lang li:first-child a").css("color","white");
+					$("header ul.mainmenu > li:last-child i").css("background-position","-175px 0px");
+					//$("header ul.mainmenu > li ul").removeClass("boder");
+					$("header .headerIn .mainmenu > li:first-child ul li,header ul.mainmenu > li ul").css("border-width","0");
+				}
+			);
+
+			//스크롤시 메뉴 고정
+			$(document).scroll(
+				function(){
+
+					if ($(window).scrollTop()>10){
+					//$("div.headerIn").css("position","relative");
+					$("div.headerIn").css({"background-color":"white","transition":1000});
+					$("header ul.mainmenu > li h2 a,header ul.lang li:first-child a").css("color","black");
+					$("header h1 a span").css("background-image","url(img/logo_kakao.png)");
+					$("header ul.mainmenu > li:last-child span").css("background-position","-155px 0px");
 					}
-				);
 
+					if ($(window).scrollTop()<10) {
+					$("div.headerIn").css("background-color","rgba(0,0,0,0)");
+					$("header ul.mainmenu > li h2 a,header ul.lang li:first-child a").css("color","white");
+					$("header h1 a span").css("background-image","url(img/logo_kakao2.png)");
+					$("header ul.mainmenu > li:last-child span").css("background-position","-175px 0px");
+					}
 
+				}		
+			);
+			$("#title .titlew li").append("<p class='cpage'>1/4</p>");
+			$("#title").append("<ul class='list1'><li></li><li></li><li></li><li></li></ul>");
+			$(".list1 li:nth-child(1)").addClass("clist");
 
+			var n=2;
+			var setI=setInterval(
+				function(){
+					if (n<5) {
+							$("#title .titlew li:nth-child("+n+")").fadeIn();
+							$("#title .titlew li:nth-child("+n+")").siblings().fadeOut();
+							if (n==2||n==4) {
 
+								$("header ul.mainmenu > li h2 a,.cpage").addClass("black");
+								$("header ul.mainmenu > li h2 a,.cpage").removeClass("white");
+								$("#title .titlew li h2").addClass("black");
+								$("#title .titlew li h2").removeClass("white");
+								$("header h1 a span").css("background-image","url(img/logo_kakao.png)");
+								$("header ul.mainmenu > li:last-child i").css("background-position","-155px 0px");
+							
+							}else{
+								$("header ul.mainmenu > li h2 a,.cpage").addClass("white");
+								$("header ul.mainmenu > li h2 a,.cpage").removeClass("black");
+								$("#title .titlew li h2").addClass("white");
+								$("#title .titlew li h2").removeClass("black");
+								$("header h1 a span").css("background-image","url(img/logo_kakao2.png)");
+								$("header ul.mainmenu > li:last-child i").css("background-position","-175px 0px");
+			
+							}
+							//페이지넘버
+							$("#title .titlew li:nth-child("+n+") p").text(n+"/4");
 
+							// 리스트 슬라이드
+							$(".list1 li:nth-child("+n+")").addClass("clist");
+							$(".list1 li:nth-child("+n+")").siblings().removeClass("clist");  
+							n++;
+					}else{
 
-			}
+						if (n==2||n==4) {
+
+								$("header ul.mainmenu > li h2 a,.cpage").addClass("black");
+								$("header ul.mainmenu > li h2 a,.cpage").removeClass("white");
+								$("#title .titlew  li h2").addClass("black");
+								$("#title .titlew  li h2").removeClass("white");
+								$("header h1 a span").css("background-image","url(img/logo_kakao.png)");
+								$("header ul.mainmenu > li:last-child i").css("background-position","-155px 0px");
+							}else{
+								$("header ul.mainmenu > li h2 a,.cpage").addClass("white");
+								$("header ul.mainmenu > li h2 a,.cpage").removeClass("black");
+								$("#title .titlew li h2,header ul.lang li:first-child a").addClass("white");
+								$("#title .titlew li h2,header ul.lang li:first-child a").removeClass("black");
+								$("header h1 a span").css("background-image","url(img/logo_kakao2.png)");
+								$("header ul.mainmenu > li:last-child i").css("background-position","-175px 0px");
+								$(".list1 li:nth-child("+n+")").addClass("clist");
+								$(".list1 li:nth-child("+n+")").siblings().removeClass("clist");
+							}
+							n=1;
+							$("#title .titlew li:nth-child("+n+")").fadeIn();
+							$("#title .titlew li:nth-child("+n+")").siblings().fadeOut();
+
+							$(".list1 li:nth-child("+n+")").addClass("clist");
+							$(".list1 li:nth-child("+n+")").siblings().removeClass("clist");
+							n++;	
+					}
+				},
+				1000
+			);
+			$("#title").hover(
+				function(){
+					clearInterval(setI);
+				}
+				
+			);
+			$("#title").mouseleave(
+				function(){
+					 setI=setInterval(
+						function(){
+							if (n<5) {
+									$("#title .titlew li:nth-child("+n+")").fadeIn();
+									$("#title .titlew li:nth-child("+n+")").siblings().fadeOut();
+									if (n==2||n==4) {
+
+										$("header ul.mainmenu > li h2 a,.cpage").addClass("black");
+										$("header ul.mainmenu > li h2 a,.cpage").removeClass("white");
+										$("#title .titlew li h2").addClass("black");
+										$("#title .titlew li h2").removeClass("white");
+										$("header h1 a span").css("background-image","url(img/logo_kakao.png)");
+										$("header ul.mainmenu > li:last-child i").css("background-position","-155px 0px");
+									
+									}else{
+										$("header ul.mainmenu > li h2 a,.cpage").addClass("white");
+										$("header ul.mainmenu > li h2 a,.cpage").removeClass("black");
+										$("#title .titlew li h2").addClass("white");
+										$("#title .titlew li h2").removeClass("black");
+										$("header h1 a span").css("background-image","url(img/logo_kakao2.png)");
+										$("header ul.mainmenu > li:last-child i").css("background-position","-175px 0px");
+					
+									}
+									//페이지넘버
+									$("#title .titlew li:nth-child("+n+") p").text(n+"/4");
+
+									// 리스트 슬라이드
+									$(".list1 li:nth-child("+n+")").addClass("clist");
+									$(".list1 li:nth-child("+n+")").siblings().removeClass("clist");  
+									n++;
+							}else{
+
+								if (n==2||n==4) {
+
+										$("header ul.mainmenu > li h2 a,.cpage").addClass("black");
+										$("header ul.mainmenu > li h2 a,.cpage").removeClass("white");
+										$("#title .titlew  li h2").addClass("black");
+										$("#title .titlew  li h2").removeClass("white");
+										$("header h1 a span").css("background-image","url(img/logo_kakao.png)");
+										$("header ul.mainmenu > li:last-child i").css("background-position","-155px 0px");
+									}else{
+										$("header ul.mainmenu > li h2 a,.cpage").addClass("white");
+										$("header ul.mainmenu > li h2 a,.cpage").removeClass("black");
+										$("#title .titlew li h2,header ul.lang li:first-child a").addClass("white");
+										$("#title .titlew li h2,header ul.lang li:first-child a").removeClass("black");
+										$("header h1 a span").css("background-image","url(img/logo_kakao2.png)");
+										$("header ul.mainmenu > li:last-child i").css("background-position","-175px 0px");
+										$(".list1 li:nth-child("+n+")").addClass("clist");
+										$(".list1 li:nth-child("+n+")").siblings().removeClass("clist");
+									}
+									n=1;
+									$("#title .titlew li:nth-child("+n+")").fadeIn();
+									$("#title .titlew li:nth-child("+n+")").siblings().fadeOut();
+
+									$(".list1 li:nth-child("+n+")").addClass("clist");
+									$(".list1 li:nth-child("+n+")").siblings().removeClass("clist");
+									n++;	
+							}
+						},
+						1000
+					);
+				}
+				
+			);
+			//li에 마우스를 올리면 실행하시오
+			//객체.메서드();
+		}
 	);
-	</script>
+
+	</script>	
 </head>
 <body>
-	<!--상단영역 -->
-	<div id="wvideo">
-		<video width="" height="" preload="auto" autoplay="" loop="">
-			<source src="http://pulmuone.smilecast.co.kr/170123_pulmuone_3m.mp4"/>
-		</video>
-	</div>	
-	<div id ="wheader">
-		<div id="header">
-		<h1><a href="#"></a>(주)풀무원</h1>
-		<ul class="mainMenu">
-			<li>
-				<h2><a href="#">#자연을 담는 큰 그릇</a></h2>
-			</li>
-			<li>
-				<h2><a href="#">바른먹거리 & 로하스</a></h2>
-				<ul>
-					<li><a href="#">로하스</a></li>
-					<li><a href="#">바른먹거리 원칙</a></li>
-					<li><a href="#">바른먹거리 캠페인</a></li>
-					<li><a href="#">요즘은 이런食 캠페인</a></li>
-					<li><a href="#">육칼챌린지</a></li>
-				</ul>
-			</li>
-			<li>
-				<h2><a href="#">뉴스룸</a></h2>
-				<ul>
-					<li><a href="#">이슈와 칼럼</a></li>
-					<li><a href="#">로하스 레시피</a></li>
-					<li><a href="#">멀티미디어</a></li>
-					<li><a href="#">자료&공지</a></li>
-				</ul>
-				</li>
-			<li>
-				<h2><a href="#">회사소개</a></h2>
-				<ul>
-					<li><a href="#">총괄 CEO 인사말</a></li>
-					<li><a href="#">가치체계</a></li>
-					<li><a href="#">히스토리</a></li>
-					<li><a href="#">동반성장경영</a></li>
-					<li><a href="#">사회책임경영</a></li>
-					<li><a href="#">지속경영</a></li>
-					<li><a href="#">IR</a></li>
-					<li><a href="#">기업지배구조</a></li>
-					<li><a href="#">풀무원 사업</a></li>
-					<li><a href="#">풀무원 브랜드</a></li>
-					<li><a href="#">CI 소개</a></li>
-				</ul>
-			</li>
-			<li>
-				<h2><a href="#">인재채용</a></h2>
-				<ul>
-					<li><a href="#">인재모시기</a></li>
-					<li><a href="#">인재키우기</a></li>
-					<li><a href="#">인재도우미</a></li>
-					<li><a href="#">한눈에 보는 풀무원</a></li>
-				</ul>
-			</li>
-			<li>
-				<h2><a href="#">고객기쁨센터</a></h2>
-			</li>
-			<li class="shop">
-				<h2><a href="#">풀무원 shop</a></h2>
-			</li>
-			<li>
-				<input type="text" placeholder="바른먹거리">
-				<a href="#"></a>
-			</li>	
-		</ul>
-		
-		<ul class="rightMenu">		
-			<li><a href="#" target="_blank">KOREAN</a></li>
-			<li><a href="#" target="_blank">ENGLISH</a></li>
-			<li><a href="#" target="_blank">CHINESE</a></li>
-			<li><a href="#" target="_blank">JAPNESE</a></li>
-		</ul>
-		</div>	
-	</div>
-	<hr>
-	<!--상단 영역 밑 하단 -->
-	<div id="headerBottom">
-		<div>
-			<h2>건강에 좋은 것이<br>환경에도 좋습니다.</h2>	
-			<p>
-			 인간과 자연을 함께 사랑하는<br>풀무원이 권하는<br>지혜로운 라이프 스타일,<br><span>‘로하스(LOHAS)’</span> 
-			</p>
-			<div class="wmenu">
-				<ul>
-					<li>
-						<h3><a href="">바른먹거리&로하스</a></h3>
-					</li>
-					<li>
-						<h3><a href="">사회책임경영</a></h3>
-					</li>
-					<li>
-						<h3><a href="">뉴스룸</a></h3>
-					</li>
-					<li>
-						<h3><a href="">회사소개</a></h3>
-					</li>
-				</ul>
-			</div>
-			<!-- 오른쪽 고정 슬라이드-->
-			<div class="rightSlide">
-				<ul>
-					<li><a href="#"></a></li>
-					<li><a href="#"></a></li>
-					<li><a href="#"></a></li>
-					<li><a href="#"></a></li>
-					<li><a href="#"></a></li>
-				</ul>
-			</div>	
-			<div class="bounce arrow">
-				<i class="ion-chevron-down"></i>
-			</div>
-		</div>
-		<p>*LOHAS (Lifestyles Of Health And Sustainability) : 건강과 지구환경의 지속가능한 발전을 생각하며 사는 의식있는 생활양식.</p>
-	</div>
-	<hr>
-	<!--타이틀 영역-->
-	<div id="content">
-		<div>
-			<h2><a href="#">바른먹거리 & 로하스</a></h2>
-			<p>나와 내 가족의 건강, 더 나아가 지구환경의 건강까지 두루 살핍니다.</p>
-			<ul>
+	
+	<!-- 상단영역 -->
+	<header>
+		<div class="headerIn">
+			<h1><a href="#"><span>kakao</span></a></h1>
+			<ul class="mainmenu">
 				<li>
-					<h3><a href="#">바른먹거리</a></h3>
-					<p>내 가족의 건강과 행복을 위한 <br>바른먹거리는 무엇일가요?</p>
-				</li>
-				<li>
-					<h3><a href="#">로하스</a></h3>
-					<p>여러분도<br>로하스 식생활을 시작해보세요</p>
-				</li>
-				<li>
-					<h3><a href="#">바른먹거리 캠페인</a></h3>
-					<p>어렸을 때 입맛이<br>평생 건강</p>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<hr>
-	<!-- 내용영역 -->
-	<div id="company">
-		<div>
-			<h2>사회책임경영</h2>
-				<p>‘생명존중’과 ‘이웃사랑’ 정신을 바탕으로<br>로하스 생활(LOHAS Living)을 구현해나갑니다.</p>
-			<ul>
-				<li>
-					<h3>건강</h3>
-					<!-- 메모 <h3><img src="#" alt="건강"></h3> -->
-					<p>Health</p>
-				</li>
-				<li>
-					<h3>지속가능성</h3>
-					<p>Sustainability</p>
-				</li>
-				<li>
-					<h3>지역사회</h3>
-					<p>Community</p>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<hr>
-	<!--뉴스 룸-->
-	<div id="newsroom">
-		<div>
-			<article>
-				<a href="#">
-				<h2>뉴스룸</h2>
-				<p>풀무원의 다양한 소식과<br>생생한 뉴스를 매일<br>만나실수 있습니다.</p>
-				</a>
-			</article>
-			<ul>
-				<li><a href="#">풀무원, 환경의 날 맞아 나와 지구환경을 위한 친<br>환경 포장 확대 선언</a></li>
-				<li><a href="#">창사 35주년 ㈜풀무원, 글로벌기준 지주회사 지<br>배구조체제 확립 선언</a></li>
-				<li><a href="#">풀무원, ‘글로벌김치공장’ 완공하고 해외시장 진<br>출...김치세계화에 나선다</a></li>
-				<li><a href="#">풀무원푸드머스, 뼈까지 부드럽게 조리한 고령<br>친화식품 ‘풀스케어 생선조림 3종’ 출 ...</a></li>
-				<li><a href="#">2030 스마트 컨슈머 心 사로 잡는 가성비, 가심<br>비 갖춘 식음료들 모여라!</a></li>
-				<li><a href="#">풀무원, 새 첨단 R&D센터 설립…연구개발 핵심<br>역량 강화</a></li>
-			</ul>
-		</div>
-	</div>
-		<!--하단 영역-->
-	<div id="history">
-		<div>
-			<section>
-				<div>
-					<h2>풀무원</h2>
-						<p>풀무원 정신은 스스로 일군 풀무원 농장에서<br>유기농을 통해 이웃사랑, 생명존중을<br>실천하는 데 한편생을 바쳤던<br>위대한 농부이자 성실한 평화주의자<br>원경선으로부터 시작합니다.</p>
-				</div>		
-			</section>	
-			<ul>
-				<li>
-					<span></span>
-					<h3><a href="#">가치세계</a></h3>
-					<p>로하스 기업 풀무원의<br>미션을 소개합니다.</p>
-				</li>
-				<li>
-					<span></span>				
-					<h3><a href="#">히스토리</a></h3>
-					<p>인간과 자연을 함께<br>사랑해온 풀무원의 시간</p>
-				</li>
-				<li>
-					<span></span>
-					<h3><a href="#">지속경영</a></h3>
-					<p>지속가능한 사회와<br>지구환경을 위한 경영활동</p>
-				</li>	
-				<li>
-					<span></span>
-					<h3><a href="#">풀무원 사업</a></h3>
-					<p>고객과 함께 만든<br>풀무원의 사업들.</p>
-				</li>
-			</ul>
-		</div>		
-	</div>
-	<hr>
-	<!--주소 영역 -->
-	<div id="footer">
-		<div class="wfooter">
-			<div class="address">
-				<h1><a href="#">(주)풀무원</a></h1>
-				<ul>
-					<li><a href="#">개인정보처리방침</a></li>
-					<li><a href="#">이메일주소 무단수집 거부</a></li>
-					<li><a href="#">사이버 감사실</a></li>
-					<li><a href="#">공장견학</a></li>
-					<li><a href="#">풀무원 채용</a></li>
-				</ul>
-				<address>
-					<span>법인명 : (주)풀무원</span><!--
-				 --><span>서울시 강남구 광평로 280 로즈데일빌딩</span><!--
-				 --><span>대표전화 : 080-022-0085</span>
-				</address>
-				<p class="Copyright">Copyright ⓒ Pulmuone co.,Ltd All Rights Reserved.</p>
-				<ul class="sns">
-					<li><a href="#">공식계정</a></li>
-					<li>
-						<a href="https://www.facebook.com/pulmuonelove" target="_blank">
-							<img src="img/icon-ft-sns01.gif" alt="페이스북">
-						</a>
-					</li>
-					<li>
-						<a href="https://pulmuone.tistory.com/" target="_blank">
-							<img src="img/icon-ft-sns02.gif" alt="블로그">
-						</a>
-					</li>
-					<li>
-						<a href="https://twitter.com/pulmuonelove" target="_blank">
-							<img src="img/icon-ft-sns03.gif" alt="트위터">
-						</a>
-					</li>
-					<li>
-						<a href="https://www.youtube.com/user/pulmuonelove" target="_blank">
-							<img src="img/icon-ft-sns04.gif" alt="유튜브">
-						</a>
-					</li>
-					<li>
-						<a href="http://webzine.pulmuone.co.kr/" target="_blank">
-							<img src="img/icon-ft-sns05.gif" alt="웹진">
-						</a>
-					</li>
-				</ul>
-			</div>
-			<div class="groupsite">
-				<h2>계열사 브랜드사이트</h2>
-				<div>
-					<dl>
-						<dt>풀무원</dt>
-							<dd><a href="#">뮤지엄김치간</a></dd>
-							<dd><a href="#">로하스아카데미</a></dd>
-							<dd><a href="#">원경선 기념관</a></dd>
-							<dd><a href="#">풀무원샵</a></dd>
-							<dd><a href="#">풀무원 소셜 웹진</a></dd>
-							<dd><a href="#">풀무원채용</a></dd>
-							<dd><a href="#">efresh 모니터</a></dd>
-							<dd><a href="#">풀무원재단</a></dd>
-							<dd><a href="#">풀무원지속경영</a></dd>
-					</dl>
-					<dl>
-					<dt>계열사</dt>
-						<dd><a href="#">올가홀푸드</a></dd>
-						<dd><a href="#">엑소후레쉬</a></dd>
-						<dd><a href="#">푸드머스</a></dd>
-						<dd><a href="#">풀무원건강생활</a></dd>
-						<dd><a href="#">풀무원다논</a></dd>
-						<dd><a href="#">풀무원샘물</a></dd>
-						<dd><a href="#">풀무원푸드앤컬처</a></dd>
-						<dd><a href="#"> Pulmuone Foods USA</a></dd>
-					</dl>
-					<dl>
-					<dt>브랜드</dt>
-						<dd><a href="#">베이비&키즈</a></dd>
-						<dd><a href="#">브루스케타</a></dd>
-						<dd><a href="#">아미오</a></dd>
-						<dd><a href="#">잇슬림</a></dd>
-						<dd><a href="#">풀무원더스킨</a></dd>
-						<dd><a href="#">풀무원녹즙</a></dd>
-						<dd><a href="#">풀무원로하스</a></dd>
-						<dd><a href="#">풍경마루</a></dd>
-						<dd><a href="#">Montereygourmetfoods</a></dd>
-						<dd><a href="#">WILDWOOD</a></dd>
-						<dd><a href="#">Nasoya Foods USA</a></dd>
-					</dl>
-				</div>
-			</div>
-		</div>
-	</div>
-</body>
+					<h2><a href="#">카카오<span class="line"></span></a></h2>
+					<div>	
+						<ul>
+							<li>
+								<a href="#">카카오 소개</a>
+								<a href="#">비전</a>
+								<a href="#">카카오 문화</a>
+								<a href="#">걸어온 길</a>
+								<a href="#">CI</a>
+								<a href="#">윤리규정</a>
+							</li>
+							<li>
+								<a href="#">카카오 AI</a>
+								<a href="#">소개</a>
+								<a href="#">알고리즘 윤리</a>
+							</li>
+							<li>
+								<a href="#">자회사</a>
+							</li>
+							<li>
+								<a href="#">비즈니스</a>
+								<a href="#">광고안내</a>
+								<a href="#">제휴안내</a>
+								<a href="#">
+									Kakao for Business
+									<span></span>
+								</a>
 
+							</li>
+							<li>
+								<a href="#">홍보채널</a>
+								<a href="#">보도자료</a>
+								<a href="#">브랜드 영상</a>
+								<a href="#">미디어 행사</a>
+								<a href="#">Kakao Travel Day</a>
+							</li>
+							<li><a href="#">오시는 길</a></li>  
+						</ul>
+					</div>	
+				</li><!--
+			 --><li>
+					<h2><a href="#">투자정보<span class="line"></span></a></h2>
+					<div>
+						<ul>
+							<li><a href="#">경영정보</a></li>
+							<li><a href="#">공시정보</a></li>
+							<li><a href="#">주가정보</a></li>
+							<li><a href="#">재무정보</a></li>
+							<li><a href="#">IR 일정</a></li>
+							<li><a href="#">IR 자료실</a></li>
+							<li><a href="#">증권사 커버리지</a></li>
+							<li><a href="#">공고</a></li>
+						</ul>
+					</div>
+				</li><!--
+			 --><li>
+					<h2><a href="#">서비스<span class="line"></span></a></h2>
+					<div>
+						<ul>
+							<li><a href="#">포털</a></li>
+							<li><a href="#">커뮤니케이션</a></li>
+							<li><a href="#">콘텐츠</a></li>
+							<li><a href="#">커머스</a></li>
+							<li><a href="#">게임</a></li>
+							<li><a href="#">핀테크</a></li>
+							<li><a href="#">모빌리티&</li></a>
+							<li><a href="#">소셜임팩트</li></a>
+						</ul>
+					</div>	
+				</li><!--
+			 --><li>
+					<h2><a href="#">소셜임팩트<span class="line"></span></a></h2>
+					<div>
+						<ul>
+							<li><a href="#">소셜임팩트 서비스</a></li>
+							<li><a href="#">사회공헌</a></li>
+							<li><a href="#">상생</a></li>
+							<li><a href="#">제주지역협력</a></li>
+							<li><a href="#">Partners with Kakao</a></li>
+						</ul>
+					</div>
+				</li><!--
+			 --><li>
+					<h2><a href="#">고객지원<span class="line"></span></a></h2>
+				</li><!--
+			 --><li>
+					<h2><a href="#">인재영입<span class="line"></span><i></i></a></h2>
+				</li>
+			</ul>
+			<ul class="lang">
+				<li>
+					<a href="">KOR</a>
+				</li>
+				<li>
+					<a href="">ENG</a>
+				</li>
+			</ul>
+		</div>
+	</header>
+	<!-- 타이틀영역 -->
+	<div id="title">
+		<ul class="titlew">
+			<li class="current">
+				<h2>일상에 필요한 모든 것들을 연결해주는<br>
+					당신과 가장 가까운 인공지능을 만나보세요. </h2>
+				<a href="#">자세히 보기<span></span></a>
+			</li>
+			<li>
+				<h2>일상에 필요한 모든 것들을 연결해주는<br>
+					 가장 가까운 인공지능을 만나보세요. </h2>
+				<a href="#">자세히 보기<span></span></a>
+			</li>
+			<li>
+				<h2>카카오는 새로운 연결을 통해<br>
+					더 편리하고 즐거운 세상을 꿈꿉니다. </h2>
+				<a href="#">자세히 보기<span></span></a>
+			</li>
+			<li>
+				<h2>카카오로 연결된 수많은 파트너들과,<br>
+					그들과 함께 더 나은 세상을 만들어나가고자 하는<br>
+					카카오의 진심을 전합니다. </h2>
+				<a href="#">자세히 보기<span></span></a>
+			</li>
+		</ul>
+	</div>
+	<!-- 내용영역 -->
+	<section>
+		<div class="sec0">
+			<div class="sec1">
+				<article>
+					<h3>PRESS RELEASE</h3>
+					<h4>카카오, 분기 최고 매출 또 경신… 매출 7,063억원 기록</h4>
+					<p>[2019-05-09] 카카오(공동대표 여민수, 조수용)는 K-IFRS(한국국제회계기준) 기준 2019년 1분기 연결 매출 7,063억원, 영업이익 277억을 기록했다고 9일 밝혔다. 1분기 연결 매...
+					</p>
+				</article><!--
+			 --><article>
+					<h3>STOCK</h3>
+					<div>	
+						<p>126,500</p>
+						<span class="icon-corp"></span>
+						<p>2,000</p> 
+					</div>
+					<time>2019-05-09 16:18:46</time>	
+				</article><!--
+			 --><article>
+					<h3>PRIVACY POLICY</h3>	
+					<p>카카오는 데이터의 연결과 보호의 균형을 위해
+					언제나 최선을 다 하겠습니다. </p>
+				</article>
+			</div>
+			<div class="sec2">
+				<article>
+					<h3>SERVICE</h3>
+					<h4>카카오톡에서 장보면 이마트가 쓱~배송해준다! 새로운 장보기 습관, 카카오장보기.</h4>
+					<p>카카오장보기는 카카오가 올 한 해 중점적으로 추진하고 있는 카카오톡 진화의 일환으로 기획됐다. 카카오톡으로 쉽고 편리하게 장보고, 원하는 시간에 집 앞까지 배송받을 수 있는 서비스다...</p>
+				</article><!-- 
+			 --><article>
+					<h3>CAREERS</h3>
+					<h4> 문제를 새롭게 정의하고, 이를 풀어내기 위한 접근 방식을 집요하게 고민할 줄 아는 능력이 중요합니다. </h4>
+					<p>UX리서치파트는 말 그대로 사람들의 경험을 조사하는 부서로, 사용자 중심으로 서비스가 나아갈 방향을 제시하는 부서입니다. 우리의 타겟 사용자들을 만나 그들이 누구이며 평소 어떤 행동들...</p>
+				</article><!--
+			 --><article>
+					<h3>SOCIAL IMPACT</h3>
+					<h4>세계 행복의 날 기념, 같이가치 ‘안녕하세요’ 캠페인을 소개합니다!</h4>
+					<p>'세계 행복의 날'이라는 기념일을 들어보신 적 있나요? 2012년 국제연합(UN)이 모든 사람들이 행복하게 살 수 있도록 전 세계가 함께 노력하자는 취지로 매년 3월 20일을 '세계 ...</p>
+				</article>
+			</div>
+		</div>
+	</section>
+	<!-- 하단영역 -->
+	<footer>
+		<div>
+			<ul>
+				<li><a href="#">이용약관</a></li>
+				<li><a href="#">위치기반서비스이용약관</a></li>
+				<li><a href="#">개인정보처리방침</a></li>
+				<li><a href="#">운영정책</a></li>
+				<li><a href="#">청소년보호정책</a></li>
+				<li><a href="#">권리침해신고안내</a></li>
+				<li><a href="#">공지사항</a></li>
+				<li><a href="#">사이버윤리실</a></li> 
+			</ul>
+			<p>Copyright © Kakao Corp. All rights reserved.</p>
+		</div>
+		<div>
+			<h2>관련사이트</h2>
+			<select>
+				<optgroup>
+					<option>관련사이트</option>
+				    <option>카카오 AI</option>
+				    <option>카카오 프라이버시</option>
+				    <option>카카오 디벨로퍼스</option>
+				    <option>다음 포털 사이트</option>
+				    <option>동반성장 사이트</option>
+				    <option>제주 with kakao</option>
+				</optgroup>
+				<a href="#"><span></span></a>
+			</select>
+		</div>
+	</footer>
+</body>
 </html>
